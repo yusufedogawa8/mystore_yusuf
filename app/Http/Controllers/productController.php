@@ -24,29 +24,27 @@ class productController extends Controller
         return view('showproduct', compact('data'));
     }
 
-    	// method untuk edit data pegawai
 	public function edit($id)
 	{
-		// mengambil data pegawai berdasarkan id yang dipilih
-		$data = DB::table('products')->where('id',$id)->get();
-		// passing data pegawai yang didapat ke view edit.blade.php
-		return view('editproduct',['id' => $id]);
- 
-	}
- 
-	// update data pegawai
+		$data = \DB::table('products')->where('id',$id)->get();
+		return view('editproduct',compact('data'));
+    }
+    
 	public function update(Request $request)
 	{
 		// update data pegawai
-		DB::table('pegawai')->where('pegawai_id',$request->id)->update([
-			'pegawai_nama' => $request->nama,
-			'pegawai_jabatan' => $request->jabatan,
-			'pegawai_umur' => $request->umur,
-			'pegawai_alamat' => $request->alamat
-		]);
-		// alihkan halaman ke halaman pegawai
-		return redirect('/pegawai');
+		DB::table('products')->where('id',$request->id)->update([
+            'id' => $request->id,
+            'product_title' => $request->title,
+            'product_slug'  => $request->slug,
+            'product_image' => $request->image
+            ]);
+
+            // redirect
+            return redirect('/product');
 	}
+ 
+
 
     
 }

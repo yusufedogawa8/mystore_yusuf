@@ -18,5 +18,8 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('product/edit/{id}', $url. '\productController@edit');
+Route::post('product/update', $url. '\productController@update');
+
 Route::get('product/{slug}', $url. '\productController@showProduct');
 Route::get('product', $url. '\productController@index');
