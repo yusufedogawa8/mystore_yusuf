@@ -23,8 +23,11 @@
                         <td>{{ $users->product_slug }}</td>
                         <td>{{ $users->product_image }}</td>
                         <td class="">
+                            <a href="#">
+                                <button class="btn btn-success center">Edit</button>
+                            </a>
                             <a href="{{ url('/product', $users->product_slug) }}">
-                                <button class="btn btn-primary center">Edit</button>
+                                <button class="btn btn-primary center">Show</button>
                             </a>
                             
                             <button class="btn btn-danger center">Delete</button>
