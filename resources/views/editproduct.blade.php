@@ -29,6 +29,7 @@
                           <label for="exampleInputPassword1">Product Image</label>
                           <input type="text" class="form-control" value="{{$data->product_image}}" placeholder="Password">
                       </div>
+                      <button class="btn btn-primary float-right">Save</button>
                     
 
                     
