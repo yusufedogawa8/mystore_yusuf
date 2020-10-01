@@ -8,6 +8,7 @@
             <table class="table table-bordered">
                 <thead>
                   <tr>
+                    <th scope="col" class="text-center">No</th>
                     <th scope="col">Product Title</th>
                     <th scope="col">Product Slug</th>
                     <th scope="col">Product Image</th>
@@ -17,6 +18,7 @@
                 <tbody>
                     @foreach ($data as $users)
                     <tr>
+                        <td class="text-center">{{ $users->id }}</td>
                         <td>{{ $users->product_title }}</td>
                         <td>{{ $users->product_slug }}</td>
                         <td>{{ $users->product_image }}</td>
