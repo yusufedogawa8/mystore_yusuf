@@ -53,7 +53,7 @@ class productController extends Controller
                 'product_price' => $request->product_price,
             ];
             Product::where('id', $request->id)->update($ganti);
-            return redirect('/product')->with(['error' => 'Your product was same, but another data can be changed :)']);
+            return redirect('/product')->with(['error' => 'Your product was same, but another data is still changed :)']);
         } else {
             Product::where('id', $request->id)->update($data);
             return redirect('/product');
