@@ -37,13 +37,27 @@ class productController extends Controller
     
 	public function update(Request $request)
 	{
-        $product = $request->all();
-        unset($product['_token']);
-        unset($product['_method']);
-        Product::where('id', $request->id)->update($product);
+        $data = [
+            'id' => $request->id,
+            'product_title' => $request->product_title,
+            'product_slug' => \Str::slug($request->product_title),
+            'product_image' => $request->product_image,
+            'product_price' => $request->product_price,
+        ];
+        // dd($data);
         
-        // dd($request->all());
-        return redirect('/product');
+        if(Product::where('product_slug', \Str::slug($request->product_title))->exists()){
+            $ganti = [
+                'id' => $request->id,
+                'product_image' => $request->product_image,
+                'product_price' => $request->product_price,
+            ];
+            Product::where('id', $request->id)->update($ganti);
+            return redirect('/product')->with(['error' => 'Your product was same, but another data can be changed :)']);
+        } else {
+            Product::where('id', $request->id)->update($data);
+            return redirect('/product');
+        }
 	}
  
     public function simpan(Request $request)
@@ -54,7 +68,7 @@ class productController extends Controller
         $product->product_image = $request->product_image;
         $product->product_price = $request->product_price;
         if(Product::where('product_slug', $product->product_slug)->exists()){
-            return redirect('/tambah')->with(['error' => 'Product already exists']);
+            return redirect('/tambah')->with(['error' => 'Product already exists! Please try again...']);
         } else {
             $product->save();
             return redirect('product');

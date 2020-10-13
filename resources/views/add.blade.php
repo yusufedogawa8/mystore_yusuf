@@ -20,9 +20,9 @@
                     <label for="">Nama Produk :</label>
                     <input type="text" name="product_title" class="form-control mb-2" placeholder="Masukkan Nama Produk Baru">
                     @if ($message = Session::get('error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button> 
-                        <strong>{{ $message }}</strong>
+                        <span>{{ $message }}</span>
                     </div>
                     @endif
                     <label for="">Harga Produk :</label>

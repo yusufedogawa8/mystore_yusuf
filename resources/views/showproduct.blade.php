@@ -27,7 +27,7 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Product Price</label>
-                        <input type="text" class="form-control" value="{{$data->product_price}}" readonly>
+                        <input type="text" class="form-control" value="Rp. {{$data->product_price}}" readonly>
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Product Image</label>

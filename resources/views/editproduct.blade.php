@@ -24,10 +24,6 @@
                         <input type="text" class="form-control" value="{{$data->product_title}}" name="product_title">
                       </div>
                       <div class="form-group">
-                        <label for="exampleInputPassword1">Product Slug</label>
-                        <input type="text" class="form-control" value="{{$data->product_slug}}" name="product_slug">
-                      </div>
-                      <div class="form-group">
                         <label for="exampleInputPassword1">Product Price</label>
                         <input type="text" class="form-control" value="{{$data->product_price}}" name="product_price">
                       </div>
@@ -35,7 +31,7 @@
                           <label for="exampleInputPassword1">Product Image</label>
                           <input type="text" class="form-control" value="{{$data->product_image}}" name="product_image">
                       </div>
-                      <input class="btn btn-success float-right" type="submit" value="Simpan Data">
+                      <button class="btn btn-success float-right" type="submit"><i class="fa fa-undo fa-sm" aria-hidden="true"></i>&nbsp; Ubah Data</button>
                 </form>
             </div>
         </div>
