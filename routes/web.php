@@ -18,8 +18,13 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('product/edit/{id}', $url. '\productController@edit');
-Route::post('product/update', $url. '\productController@update');
+Route::get('product/edit/{product:product_slug}', $url. '\productController@edit');
+Route::patch('product/update', $url. '\productController@update');
 
 Route::get('product/{slug}', $url. '\productController@showProduct');
 Route::get('product', $url. '\productController@index');
+
+Route::get('tambah', $url. '\productController@tambah');
+Route::post('product/simpan', $url. '\productController@simpan');
+
+Route::delete('product/delete/{product:product_slug}', $url. '\productController@delete');

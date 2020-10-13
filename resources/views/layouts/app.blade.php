@@ -26,6 +26,14 @@
   <link rel="stylesheet" href="{{url('plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+  svg.w-5.h-5 {
+    width: 30px;
+  }
+  p.text-sm.text-gray-700.leading-5 {
+    margin-top: 17px;
+  }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -167,10 +175,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{url('img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{url('https://lh3.googleusercontent.com/ogw/ADGmqu8F6rRbFm9NCB5ulAY812rHkfyWjfaXWnHIe18w=s32-c-mo')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Yusuf Edogawa</a>
         </div>
       </div>
 
@@ -209,7 +217,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="product" class="nav-link">
+            <a href="{{ url('product')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>Product</p>
             </a>
@@ -274,7 +282,12 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

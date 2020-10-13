@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class productController extends Controller
 {
     public function index()
     {
-        $data = DB::select('select * from products');
+        $data = Product::paginate(5);
         return view('product',compact('data'));     
     }
 
-
+    public function tambah()
+    {
+        return view('add');
+    }
 
     public function showProduct($slug)
     {
@@ -24,27 +29,42 @@ class productController extends Controller
         return view('showproduct', compact('data'));
     }
 
-	public function edit($id)
+	public function edit(Product $product)
 	{
-		$data = \DB::table('products')->where('id',$id)->get();
+		$data = $product;
 		return view('editproduct',compact('data'));
     }
     
 	public function update(Request $request)
 	{
-		// update data pegawai
-		DB::table('products')->where('id',$request->id)->update([
-            'id' => $request->id,
-            'product_title' => $request->title,
-            'product_slug'  => $request->slug,
-            'product_image' => $request->image
-            ]);
-
-            // redirect
-            return redirect('/product');
+        $product = $request->all();
+        unset($product['_token']);
+        unset($product['_method']);
+        Product::where('id', $request->id)->update($product);
+        
+        // dd($request->all());
+        return redirect('/product');
 	}
  
+    public function simpan(Request $request)
+    {
+        $product = new Product;
+        $product->product_title = $request->product_title;
+        $product->product_slug = \Str::slug($request->product_title);
+        $product->product_image = $request->product_image;
+        $product->product_price = $request->product_price;
+        if(Product::where('product_slug', $product->product_slug)->exists()){
+            return redirect('/tambah')->with(['error' => 'Product already exists']);
+        } else {
+            $product->save();
+            return redirect('product');
+        }
+    }
 
-
+    public function delete(Product $product)
+    {
+        $product->delete();
+        return redirect('/product');
+    }
     
 }

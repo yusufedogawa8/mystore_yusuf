@@ -9,37 +9,33 @@
     <div class="col-12 bg-white">
         <div class="card">
             <div class="card-header bg-primary">
-                <a href="{{ url('/product') }}">
-                    <button class="btn btn-success float-left mr-2">Back</button>
-                </a>
-                <h2>Edit</h2>
+                <h2 class="m-0 p-0">Edit <strong>Produk {{$data->product_title}}</strong>
+                    <a href="{{ url('/product') }}" class="btn btn-primary float-right mr-2">
+                    <i class="fas fa-chevron-left"></i></a>
+                </h2>
             </div>
             <div class="card-body">
-
-                @foreach ($data as $users)
                 <form action="/product/update" method="POST">
                     @csrf
-                   
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">ID</label>
-                        <input type="text" class="form-control" value="{{$users->id}}" name="id" readonly>
-                      </div>
+                    @method('patch')
+                    <input type="hidden" name="id" value="{{ $data->id }}">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Product Title</label>
-                        <input type="text" class="form-control" value="{{$users->product_title}}" name="title">
+                        <input type="text" class="form-control" value="{{$data->product_title}}" name="product_title">
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Product Slug</label>
-                        <input type="text" class="form-control" value="{{$users->product_slug}}" name="slug">
+                        <input type="text" class="form-control" value="{{$data->product_slug}}" name="product_slug">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Product Price</label>
+                        <input type="text" class="form-control" value="{{$data->product_price}}" name="product_price">
                       </div>
                       <div class="form-group">
                           <label for="exampleInputPassword1">Product Image</label>
-                          <input type="text" class="form-control" value="{{$users->product_image}}" name="image">
+                          <input type="text" class="form-control" value="{{$data->product_image}}" name="product_image">
                       </div>
-                      <input class="btn btn-primary float-right" type="submit" value="Simpan Data">
-                      @endforeach
-
-                    
+                      <input class="btn btn-success float-right" type="submit" value="Simpan Data">
                 </form>
             </div>
         </div>
