@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class productController extends Controller
 {
@@ -53,10 +57,10 @@ class productController extends Controller
                 'product_price' => $request->product_price,
             ];
             Product::where('id', $request->id)->update($ganti);
-            return redirect('/product')->with(['error' => 'Your product was same, but another data is still changed :)']);
+            return redirect('/product')->with(['error' => 'Your product name ' . $request['product_title'] . " wasn't changed, but another data is still changed :)"]);
         } else {
             Product::where('id', $request->id)->update($data);
-            return redirect('/product');
+            return redirect('/product')->with(['success' => 'Your product is successfully changed!']);
         }
 	}
  
@@ -68,10 +72,10 @@ class productController extends Controller
         $product->product_image = $request->product_image;
         $product->product_price = $request->product_price;
         if(Product::where('product_slug', $product->product_slug)->exists()){
-            return redirect('/tambah')->with(['error' => 'Product already exists! Please try again...']);
+            return redirect('/tambah')->with(['error' => 'Product '.$request['product_title'].' already exists! Please try another name...']);
         } else {
             $product->save();
-            return redirect('product');
+            return redirect('product')->with(['success' => 'Product '.$request['product_title'].' successfully added!']);
         }
     }
 
@@ -80,5 +84,30 @@ class productController extends Controller
         $product->delete();
         return redirect('/product');
     }
+
+    public function exportXL()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+    }
     
+    public function exportCSV()
+    {
+        return Excel::download(new ProductsExport, 'products.csv');
+    }
+
+    public function exportPDF()
+    {
+        return Excel::download(new ProductsExport, 'products.pdf');
+    }
+
+    public function upload()
+    {
+        return view('upload');
+    }
+
+    public function uploadData(Request $request)
+    {
+        Excel::import(new ProductsImport, $request->file('file')->store('temp'));
+        return redirect('/product');
+    }
 }
